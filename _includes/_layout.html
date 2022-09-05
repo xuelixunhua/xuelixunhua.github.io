@@ -1,86 +1,95 @@
-<!doctype html>
-{% include _blocks/title.html %}
-{% include _blocks/page_class.html %}
-{% include _blocks/sidebar.html %}
-{% include _blocks/script_extra.html %}
-
-{% assign html_class = 'theme-next ' | append: site.scheme %}
-{% if site.use_motion %}
-  {% assign html_class = html_class | append: ' use-motion' %}
-{% endif %}
+<!doctype html> {% include _blocks/title.html %} {% include _blocks/page_class.html %} {% include _blocks/sidebar.html %} {% include _blocks/script_extra.html %} {% assign html_class = 'theme-next ' | append: site.scheme %} {% if site.use_motion %} {% assign html_class
+= html_class | append: ' use-motion' %} {% endif %}
 
 <html class="{{ html_class | downcase }}" lang="{{ site.language }}">
+
 <head>
-  {% include _partials/head.html %}
-  <title>{{ title }}</title>
-  {% include _third-party/analytics/index.html %}
+    {% include _partials/head.html %}
+    <title>{{ title }}</title>
+    {% include _third-party/analytics/index.html %}
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang | default: page.language | default: site.language }}">
 
-  {% assign container_class = "container " %}
-  {% if site.sidebar.position %}
-    {% assign container_class = container_class | append: 'sidebar-position-' | append: site.sidebar.position %}
-  {% endif %}
+    {% assign container_class = "container " %} {% if site.sidebar.position %} {% assign container_class = container_class | append: 'sidebar-position-' | append: site.sidebar.position %} {% endif %}
 
-  <div class="{{ container_class }} {{ page_class }} ">
-    <div class="headband"></div>
+    <div class="{{ container_class }} {{ page_class }} ">
+        <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> {% include _partials/header.html %} </div>
-    </header>
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+            <div class="header-inner"> {% include _partials/header.html %} </div>
+        </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            {{ content }}
-          </div>
-          {% include _third-party/duoshuo-hot-articles.html %}
-          {% include _partials/comments.html %}
+        <main id="main" class="main">
+            <div class="main-inner">
+                <div class="content-wrap">
+                    <div id="content" class="content">
+                        {{ content }}
+                    </div>
+                    {% include _third-party/duoshuo-hot-articles.html %} {% include _partials/comments.html %}
+                </div>
+                {% if site.sidebar.display != 'remove' %} {{ sidebar }} {% endif %}
+            </div>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                {% include _partials/footer.html %} {% include _third-party/analytics/busuanzi-counter.html %} {{ footer }}
+            </div>
+        </footer>
+
+        {% unless site.sidebar.b2t %}
+        <div class="back-to-top">
+            <i class="fa fa-arrow-up"></i> {% if site.sidebar.scrollpercent %}
+            <span id="scrollpercent"><span>0</span>%</span>
+            {% endif %}
         </div>
-        {% if site.sidebar.display != 'remove' %}
-          {{ sidebar }}
-        {% endif %}
-      </div>
-    </main>
+        {% endunless %}
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        {% include _partials/footer.html %}
-        {% include _third-party/analytics/busuanzi-counter.html %}
-        {{ footer }}
-      </div>
-    </footer>
+    </div>
 
-    {% unless site.sidebar.b2t %}
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        {% if site.sidebar.scrollpercent %}
-          <span id="scrollpercent"><span>0</span>%</span>
-        {% endif %}
-      </div>
-    {% endunless %}
+    <div>
+        <canvas id="live2dcanvas" width="150" height="300"></canvas>
+    </div>
+    <style>
+        #live2dcanvas {
+            position: fixed;
+            width: 150px;
+            height: 300px;
+            opacity: 0.7;
+            right: 0px;
+            z-index: 999;
+            pointer-events: none;
+            bottom: -20px;
+        }
+    </style>
+    <script type="text/javascript" src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+        const loadScript = function loadScript(c, b) {
+            var a = document.createElement("script");
+            a.type = "text/javascript";
+            "undefined" != typeof b && (a.readyState ? a.onreadystatechange = function() {
+                if ("loaded" == a.readyState || "complete" == a.readyState) a.onreadystatechange = null, b()
+            } : a.onload = function() {
+                b()
+            });
+            a.src = c;
+            document.body.appendChild(a)
+        };
+        (function() {
+            if ((typeof(device) != 'undefined') && (device.mobile())) {
+                document.getElementById("live2dcanvas").style.width = '75px';
+                document.getElementById("live2dcanvas").style.height = '150px';
+            } else if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+            loadScript("/live2d/script.js", function() {
+                loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);
+            });
+        })();
+    </script>
 
-  </div>
-
-  {% include _scripts/vendors.html %}
-  {% include _scripts/commons.html %}
-
-  {% assign scheme_script = '_scripts/schemes/' | append: site.scheme | downcase | append: '.html' %}
-  {% include {{ scheme_script }} %}
-
-  {{ script_extra }}
-
-  {% include _scripts/boostrap.html %}
-
-  {% include _third-party/comments/index.html %}
-  {% include _third-party/search/index.html %}
-  {% include _third-party/analytics/lean-analytics.html %}
-  {% include _third-party/seo/baidu-push.html %}
-  {% include _third-party/rating.html %}
-  {% include _third-party/mathjax.html %}
-  {% include _third-party/scroll-cookie.html %}
-  {% include _third-party/exturl.html %}
+    {% include _scripts/vendors.html %} {% include _scripts/commons.html %} {% assign scheme_script = '_scripts/schemes/' | append: site.scheme | downcase | append: '.html' %} {% include {{ scheme_script }} %} {{ script_extra }} {% include _scripts/boostrap.html
+    %} {% include _third-party/comments/index.html %} {% include _third-party/search/index.html %} {% include _third-party/analytics/lean-analytics.html %} {% include _third-party/seo/baidu-push.html %} {% include _third-party/rating.html %} {% include
+    _third-party/mathjax.html %} {% include _third-party/scroll-cookie.html %} {% include _third-party/exturl.html %}
 </body>
+
 </html>
