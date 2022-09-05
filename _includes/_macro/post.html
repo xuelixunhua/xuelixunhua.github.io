@@ -168,7 +168,7 @@ post_class = post_class | append: ' ' | append: post_extra_class | default: '' %
                 </span> {% if site.post_wordcount.item_text %}
                 <span class="post-meta-item-text">{{ __.post.wordcount }}</span> {% endif %}
                 <span title="{{ __.post.wordcount }}">
-                  {{ wordcount(post.content) }} 字
+                  {{ wordcount }} 字
                 </span> {% endif %} {% if site.post_wordcount.wordcount and site.post_wordcount.min2read %}
                 <span class="post-meta-divider">|</span> {% endif %} {% if site.post_wordcount.min2read %}
                 <span class="post-meta-item-icon">
