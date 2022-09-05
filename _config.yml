@@ -3,7 +3,7 @@
 ## Docs: https://jekyllrb.com/docs/configuration/
 # ---------------------------------------------------------------
 
-# Site
+# Site  标题等信息
 title: 雪里寻花
 subtitle: 写东西、记东西的地方
 description: 不断告别过去、不断成长
@@ -18,7 +18,7 @@ url:
 baseurl:
 permalink: pretty
 
-# Pagination
+# Pagination 页码
 paginate: 10
 #paginate_path: "/page:num/"
 #archive:
@@ -217,6 +217,7 @@ social:
   Github: https://github.com/xuelixunhua
   知乎: https://www.zhihu.com/people/xue-li-xun-hua
   公众号:雪里寻花: 
+  bilibili: https://space.bilibili.com/67212726?spm_id_from=333.1007.0.0
 
 
 
@@ -232,6 +233,7 @@ social_icons:
   GitHub: github
   知乎: 知乎
   公众号: 雪里寻花
+  bilibili: bilibili
 
 
 # Sidebar Avatar
@@ -332,7 +334,7 @@ wechat_subscriber:
 
 # Declare license on posts
 post_copyright:
-  enable: false
+  enable: true
   license: CC BY-NC-SA 3.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -386,8 +388,6 @@ baidu_analytics: 935b7b369e659a5d0caaa62466701ad7
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
   enable: true
   shortname: 20
   count: true
@@ -598,7 +598,7 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  # enable: false
   enable: true
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
