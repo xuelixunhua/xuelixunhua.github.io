@@ -19,7 +19,7 @@ baseurl:
 permalink: pretty
 
 # Pagination 页码
-paginate: 10
+paginate: 5
 #paginate_path: "/page:num/"
 #archive:
   #paginate: 10
