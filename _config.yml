@@ -19,16 +19,16 @@ baseurl:
 permalink: pretty
 
 # Pagination 页码
-paginate: 5
+paginate: 10
 #paginate_path: "/page:num/"
 #archive:
   #paginate: 10
   #paginate_path: "/page:num/"
-#category:
-  #paginate: 10
+category:
+  paginate: 50
   #paginate_path: "/page:num/"
-#tag:
-  #paginate: 10
+tag:
+  paginate: 50
   #paginate_path: "/page:num/"
 
 # Handling Reading
